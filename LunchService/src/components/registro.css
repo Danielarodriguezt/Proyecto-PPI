@@ -1,0 +1,117 @@
+/* Fondo general */
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #313852, #C2CBD4);
+    background-attachment: fixed;
+    /* evita cortes */
+}
+
+/* Contenedor principal */
+.registro-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 100px;
+}
+
+/* Título */
+h1 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+/* Formulario */
+.formulario {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Inputs y select */
+.formulario input,
+.formulario select {
+    margin: 10px 0;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    transition: 0.3s;
+}
+
+/* Efecto al enfocar */
+.formulario input:focus,
+.formulario select:focus {
+    border-color: #313852;
+    box-shadow: 0 0 5px rgba(49, 56, 82, 0.5);
+}
+
+/* Botón */
+.formulario button {
+    background: linear-gradient(135deg, #313852, #252b40);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+/* Hover botón */
+.formulario button:hover {
+    transform: scale(1.05);
+}
+
+/* Título dinámico */
+.formulario h3 {
+    margin-top: 10px;
+    color: #313852;
+}
+
+/*Animación para los inputs*/
+.fade {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    animation: aparecer 0.5s ease-in-out;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/*Error de las validaciones*/
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: -5px;
+  margin-bottom: 5px;
+}
+
+/*link para cambiar de registro a inicio de sesion*/
+.link {
+  color: #292e44;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.registro-container p{
+    font-size: 20px;
+}

@@ -1,0 +1,455 @@
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+/*Carrusel*/
+
+.carousel {
+  position: relative;
+  top: 80px; /* altura del navbar */
+  height: calc(100vh - 80px);
+}
+
+.carousel,
+.carousel-inner,
+.carousel-item {
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-item {
+  position: relative;
+}
+
+/* 🔥 Capa de vidrio completa */
+.glass-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* 🔥 Caja de texto dentro del vidrio */
+.glass-content {
+  text-align: center;
+  color: white;
+
+  padding: 25px 40px;
+
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/*Botones navegación*/
+.btn.btn-login {
+  background-color: transparent;
+  border: 2px solid #313852;
+  color: #313852;
+  font-weight: bold;
+}
+
+.btn.btn-login:hover {
+  background-color: #313852;
+  color: white;
+  border: 2px solid #313852; /* 🔥 mantener borde */
+}
+
+.btn.btn-register {
+  background-color: #313852;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+
+.btn.btn-register:hover {
+  background-color: #1f2538; /* un poco más oscuro */
+  color: white;
+}
+
+.btn-login,
+.btn-register {
+  font-weight: bold;
+}
+
+/*Navegación*/
+.navbar .nav-link {
+  color: #728599 !important;
+  font-weight: bold;
+}
+
+.navbar .nav-link:hover {
+  color: #313852 !important;
+}
+
+.navbar {
+  margin-bottom: 0 !important;
+}
+
+
+/*Imagen y texto derecha*/
+.text-image-container {
+  display: flex;
+  align-items: center; /* centra verticalmente */
+  justify-content: space-between;
+
+  margin-top: 130px; /* separación del carrusel */
+  padding: 0 40px;
+  gap: 40px;
+}
+
+/* Texto izquierda */
+.text-box {
+  flex: 1;
+  max-width: 500px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* centra vertical */
+  align-items: center;      /* centra horizontal */
+  text-align: center;       /* centra el texto */
+
+  margin-left: 70px;
+}
+
+.text-box h1 {
+  margin-bottom: 20px;
+  color: #313852;
+}
+
+.text-box p {
+  margin-top: 0;
+}
+
+/*Imagen lateral derecha*/
+.img-container {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 50px;
+  padding-right: 160px;
+}
+
+.img-container img {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+
+  border-radius: 50px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.385);
+}
+
+/* Texto derecha e imagen izquierda*/
+/* Contenedor principal */
+.text-image-container.izquierda {
+  display: flex;
+  align-items: center; /* centra verticalmente */
+  justify-content: space-between;
+
+  margin-top: 130px; /* separación del carrusel */
+  padding: 0 40px;
+  gap: 40px;
+}
+
+/* Texto (queda a la derecha visualmente si inviertes luego) */
+.text-box {
+  flex: 1;
+  max-width: 500px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* centra vertical */
+  align-items: center;      /* centra horizontal */
+  text-align: center;       /* centra el texto */
+
+  margin-right: 70px;
+
+}
+
+/* Botón derecha */
+.btn-main-D {
+  background-color: #313852;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.text-box button {
+  margin-top: 15px;
+}
+
+.btn-main:hover {
+  background-color: #1f2538;
+}
+
+.btn-main-IZ {
+  background-color: #313852;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.text-box button {
+  margin-top: 15px;
+}
+
+.btn-main:hover {
+  background-color: #1f2538;
+}
+
+/* Imagen */
+.img-container-left {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 50px;
+  padding-left: 90px;/
+}
+
+.img-container-left img {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+
+  border-radius: 50px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.385);
+}
+
+/* SECCIÓN DE TARJETAS   */
+
+.cards-section {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+
+  width: 100%;         
+  max-width: 1400px;   
+  margin: 0 auto;
+
+  padding: 60px 40px;
+
+  align-items: stretch; /*todas midan igual */
+
+  margin-top: 60px;
+}
+
+/* TARJETA               */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 👈 clave */
+
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Hover efecto */
+.card:hover {
+  transform: translateY(-10px);
+}
+
+/* IMAGEN                */
+
+.card img {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+
+/* TEXTO                 */
+
+.card h3 {
+  color: #313852;
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: #555;
+}
+
+/* BOTÓN                 */
+
+.btn-card {
+  margin-top: 15px;
+
+  background-color: #313852;
+  color: white;
+  border: none;
+
+  padding: 10px 20px;
+  border-radius: 25px;
+
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-card:hover {
+  background-color: #1f2538;
+}
+
+
+/* =========================
+   CARRUSEL SERVICIOS
+========================= */
+
+.servicios-carousel {
+  position: relative;
+  top: 80px;
+  height: calc(100vh - 80px);
+}
+
+.servicios-carousel,
+.servicios-carousel .carousel-inner,
+.servicios-carousel .carousel-item {
+  width: 100%;
+  overflow: hidden;
+}
+
+.servicios-carousel .carousel-item {
+  position: relative;
+}
+/* RESPONSIVE (PRO)      */
+
+@media (max-width: 900px) {
+  .cards-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .cards-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+.footer {
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+
+  background: #313852;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+
+
+/*IMAGE ENCABEZADO*/
+.imagen-enc-container {
+  width: 100%;
+  height: 60vh; /* 👈 ocupa 60% de la pantalla */
+  min-height: 400px; /* 👈 evita que sea muy pequeño */
+  position: relative;
+  overflow: hidden;
+
+  margin-top: 0 !important;
+}
+
+.imagen-enc-fondo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 👇 Overlay oscuro elegante (NO blanco) */
+.imagen-enc-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.3)
+  );
+}
+
+/* 👇 Contenido centrado */
+.imagen-enc-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imagen-enc-content h1 {
+  color: white;
+  font-size: 3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
