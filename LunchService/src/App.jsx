@@ -3,8 +3,8 @@ import Inicio from "./pages/Inicio";
 import Servicios from "./pages/Servicios";
 import Contacto from "./pages/Contacto";
 import './App.css';
-import InicioSesion from "./pages/InicioSesion";
 import Registro from "./pages/Registro";
+import IniciarSesion from "./pages/IniciarSesion";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <Route path="/Inicio" element={<Inicio />} />
         <Route path="/Servicios" element={<Servicios />} />
         <Route path="/Contacto" element={<Contacto />} />
-        <Route path="/InicioSesion" element={<InicioSesion />} />
+        <Route path="/IniciarSesion" element={<IniciarSesion />} />
         <Route path="/Registro" element={<Registro />} />
         
       </Routes>

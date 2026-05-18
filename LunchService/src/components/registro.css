@@ -1,74 +1,105 @@
-/* Fondo general */
-body {
-    margin: 0;
+.pagina-registro {
     min-height: 100vh;
-    background: linear-gradient(135deg, #313852, #C2CBD4);
-    background-attachment: fixed;
-    /* evita cortes */
+
+    background: linear-gradient(
+        135deg,
+        #d9d4c8,
+        #9ea8b5,
+        #313852
+    );
 }
 
 /* Contenedor principal */
 .registro-container {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    padding-top: 100px;
+    padding-top: 120px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
 }
 
 /* Título */
-h1 {
-    color: white;
-    margin-bottom: 20px;
+.pagina-registro h1 {
+    color: #F7F4EB;
+    font-size: 45px;
+    letter-spacing: 1px;
 }
 
 /* Formulario */
 .formulario {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 20px;
-    width: 350px;
+    width: 80%;
+    max-width: 400px;
+    padding: 35px;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(14px);
+    overflow: visible;
+    min-height: auto;
+    box-shadow:
+        0px 8px 25px rgba(0,0,0,0.25),
+        inset 0px 1px 1px rgba(255,255,255,0.2);
+    animation: subirSuave 1s ease;
+    transition: 1s;
     display: flex;
     flex-direction: column;
-    box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.3);
+    gap: 15px;
+    height: auto;
 }
 
 /* Inputs y select */
-.formulario input,
-.formulario select {
-    margin: 10px 0;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+.pagina-registro input,
+.pagina-registro select {
+    width: 100%;
+    padding: 16px;
+    margin-bottom: 20px;
+    border: 2px solid transparent;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.82);
+    font-size: 15px;
+    font-weight: 500;
+    color: #313852;
+    box-sizing: border-box;
+    transition:
+        all 0.3s ease,
+        transform 0.2s ease;
     outline: none;
-    transition: 0.3s;
 }
 
 /* Efecto al enfocar */
 .formulario input:focus,
 .formulario select:focus {
-    border-color: #313852;
-    box-shadow: 0 0 5px rgba(49, 56, 82, 0.5);
+    border: 2px solid #313852;
+    background: rgba(255,255,255,0.95);
+    box-shadow:
+        0px 0px 12px rgba(49, 56, 82, 0.25);
+    transform: scale(1.01);
+}
+
+.pagina-registro input::placeholder {
+    color: #5f6577;
+    font-weight: 400;
 }
 
 /* Botón */
-.formulario button {
-    background: linear-gradient(135deg, #313852, #252b40);
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: 0.3s;
-    font-weight: bold;
+.pagina-registro button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background-color: #313852;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-/* Hover botón */
-.formulario button:hover {
-    transform: scale(1.05);
+button:hover {
+  transform: scale(1.03);
+  background-color: #23293d;
 }
-
 /* Título dinámico */
 .formulario h3 {
     margin-top: 10px;
@@ -80,38 +111,106 @@ h1 {
     display: flex;
     flex-direction: column;
     width: 100%;
-    animation: aparecer 0.5s ease-in-out;
+    gap: 12px;
+    opacity: 1;
+    visibility: visible;
+    animation: aparecer 0.4s ease;
 }
 
 @keyframes aparecer {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
+
 /*Error de las validaciones*/
 .error {
-  color: red;
-  font-size: 12px;
-  margin-top: -5px;
-  margin-bottom: 5px;
+    color: red;
+    font-size: 12px;
+    margin-top: -5px;
+    margin-bottom: 5px;
 }
 
 /*link para cambiar de registro a inicio de sesion*/
 .link {
-  color: #292e44;
-  cursor: pointer;
-  font-weight: bold;
+    color: #292e44;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .link:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
-.registro-container p{
+.registro-container p {
     font-size: 20px;
+}
+
+/* CONTENEDOR GENERAL */
+.contenedor-principal {
+    display: flex;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* LADO IZQUIERDO */
+.lado-imagen {
+    width: 50%;
+    height: 100vh;
+}
+
+.lado-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.85);
+    transition: transform 0.5s ease;
+}
+
+.lado-imagen img:hover {
+    transform: scale(1.03);
+}
+
+/* LADO DERECHO */
+.lado-formulario {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-y: auto;
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+/* ANIMACIÓN FORMULARIO */
+.registro-container {
+    animation: aparecerFormulario 1s ease;
+}
+
+/* HOVER DEL FORMULARIO */
+.formulario:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0px 12px 30px rgba(0,0,0,0.3),
+        inset 0px 1px 1px rgba(255,255,255,0.2);
+}
+
+/* APARICIÓN */
+@keyframes aparecerFormulario {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }

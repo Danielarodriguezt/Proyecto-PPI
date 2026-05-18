@@ -8,7 +8,7 @@ function RegistroForm() {
         tipoUsuario: "",
         nombre: "",
         documento: "",
-        grado: "",
+        grupo: "",
         institucion: "",
         estudiante: "",
         telefono: "",
@@ -28,7 +28,7 @@ function RegistroForm() {
                 tipoUsuario: value,
                 nombre: "",
                 documento: "",
-                grado: "",
+                grupo: "",
                 institucion: "",
                 estudiante: "",
                 telefono: "",
@@ -49,12 +49,10 @@ function RegistroForm() {
         // EStudiante
         if (formData.tipoUsuario === "estudiante") {
 
-            if (!formData.nombre) {
+            if (!formData.nombre.trim()) {
                 nuevosErrores.nombre = "El nombre es obligatorio";
-            }
-
-            if (!formData.grado) {
-                nuevosErrores.grado = "El grado es obligatorio";
+            } else if (formData.nombre.trim().split(" ").length < 2) {
+                nuevosErrores.nombre = "Ingrese nombre y apellido";
             }
 
             if (!formData.institucion) {
@@ -65,6 +63,10 @@ function RegistroForm() {
                 nuevosErrores.correo = "El correo es obligatorio";
             } else if (!formData.correo.includes("@")) {
                 nuevosErrores.correo = "Correo inválido";
+            }
+
+            if (!formData.grupo) {
+                nuevosErrores.grupo = "El grupo es obligatorio";
             }
         }
 
@@ -77,12 +79,16 @@ function RegistroForm() {
                 nuevosErrores.documento = "Solo números";
             }
 
-            if (!formData.nombre) {
+            if (!formData.nombre.trim()) {
                 nuevosErrores.nombre = "El nombre es obligatorio";
+            } else if (formData.nombre.trim().split(" ").length < 2) {
+                nuevosErrores.nombre = "Ingrese nombre y apellido";
             }
 
             if (!formData.estudiante) {
                 nuevosErrores.estudiante = "El nombre del estudiante es obligatorio";
+            } else if (formData.nombre.trim().split(" ").length < 2) {
+                nuevosErrores.nombre = "Ingrese nombre y apellido";
             }
 
             if (!formData.telefono) {
@@ -95,8 +101,10 @@ function RegistroForm() {
         //Admin
         if (formData.tipoUsuario === "admin") {
 
-            if (!formData.nombre) {
+            if (!formData.nombre.trim()) {
                 nuevosErrores.nombre = "El nombre es obligatorio";
+            } else if (formData.nombre.trim().split(" ").length < 2) {
+                nuevosErrores.nombre = "Ingrese nombre y apellido";
             }
 
             if (!formData.documento) {
@@ -131,7 +139,7 @@ function RegistroForm() {
             if (formData.tipoUsuario === "admin") {
                 return (
                     user.tipoUsuario === "admin" &&
-                    user.correo === formData.correo
+                    user.correo.trim() === formData.correo.trim()
                 );
             }
 
@@ -147,7 +155,7 @@ function RegistroForm() {
             if (formData.tipoUsuario === "estudiante") {
                 return (
                     user.tipoUsuario === "estudiante" &&
-                    user.correo === formData.correo
+                    user.correo.trim() === formData.correo.trim()
                 );
             }
 
@@ -158,19 +166,14 @@ function RegistroForm() {
         if (usuarioExistente) {
             Swal.fire({
                 title: "Usuario ya registrado ⚠️",
-                text: "Este usuario ya existe en el sistema",
+                text: "Ya existe un usuario con estos datos",
                 icon: "warning"
             });
-            return; 
+            return;
         }
 
         // Si  no existe lo guarda 
         usuariosGuardados.push(formData);
-
-        localStorage.setItem("usuarios", JSON.stringify(usuariosGuardados));
-
-        usuariosGuardados.push(formData);
-
         localStorage.setItem("usuarios", JSON.stringify(usuariosGuardados));
 
         // Alerta
@@ -185,7 +188,7 @@ function RegistroForm() {
             tipoUsuario: "",
             nombre: "",
             documento: "",
-            grado: "",
+            grupo: "",
             institucion: "",
             estudiante: "",
             telefono: "",
@@ -222,21 +225,48 @@ function RegistroForm() {
                     />
                     {errores.nombre && <span className="error">{errores.nombre}</span>}
 
-                    <input
-                        type="text"
-                        name="grado"
-                        placeholder="Grado"
-                        value={formData.grado}
+                    <select
+                        name="grupo"
+                        value={formData.grupo}
                         onChange={handleChange}
-                    />
+                    >
+                        <option value="">Seleccione Grupo</option>
+                        <option value="Jardin">Jardín</option>
+                        <option value="Presscolar">Preescolar</option>
+                        <option value="1">1°</option>
+                        <option value="2">2°</option>
+                        <option value="3">3°</option>
+                        <option value="4">4°</option>
+                        <option value="5">5°</option>
+                        <option value="6">6°</option>
+                        <option value="7">7°</option>
+                        <option value="8">8°</option>
+                        <option value="9">9°</option>
+                        <option value="10">10°</option>
+                        <option value="11">11°</option>
 
-                    <input
-                        type="text"
+                    </select>
+                    {errores.grupo && <span className="error">{errores.grupo}</span>}
+
+                    <select
                         name="institucion"
-                        placeholder="Institución"
                         value={formData.institucion}
                         onChange={handleChange}
-                    />
+                    >
+                        <option value="">Seleccione la Institución</option>
+                        <option value="i.e_san_jose">Institución Educativa San José</option>
+                        <option value="i.e_colombia">Institución Educativa Colombia</option>
+                        <option value="i.e_antioquia">Institución Educativa Antioquia</option>
+                        <option value="colegio_militar">Colegio Militar</option>
+                        <option value="colegio_adventista">Colegio Adventista</option>
+                        <option value="i.e_villa">Intitución Educativa Villa de la Candelaria</option>
+                        <option value="i.e_sadep">Institución Educativa San Antonio de Prado</option>
+                        <option value="i.e_pascual">Instituto Técnico Industrial Pascual Bravo</option>
+                        <option value="colegio_upb">Colegio UPB</option>
+                        <option value="i.e_monseñor">Institución Educativa Monseñor </option>
+
+                    </select>
+                    {errores.institucion && <span className="error">{errores.institucion}</span>}
 
                     <input
                         type="email"

@@ -40,7 +40,7 @@ function MenuNav() {
 
         {/* Botones a la derecha */}
         <div className="d-flex gap-2">
-          <Link to="/InicioSesion">
+          <Link to="/IniciarSesion">
             <button className="btn btn-login rounded-pill fw-bold">
               Iniciar sesión
             </button>
