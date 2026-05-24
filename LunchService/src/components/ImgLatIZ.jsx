@@ -6,7 +6,7 @@ function ImagenLateralIZ() {
       {/* 👈 IMAGEN PRIMERO */}
       <div className="img-container-left">
         <img
-          src="/QS.jpg"
+          src="./EquipodeTrabajo.jpg"
           className="rounded-5 img-fluid"
           alt="Imagen"
         />
