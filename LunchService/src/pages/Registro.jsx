@@ -17,7 +17,7 @@ function Registro() {
 
                 {/* Lado Izquierdo */}
                 <div className="lado-imagen">
-                    <img src="../public/logo_ls.jpg" alt="logo_ls" />
+                    <img src="/logo_ls.jpg" alt="logo_ls" />
                 </div>
 
                 {/* Lado Derecho */}
