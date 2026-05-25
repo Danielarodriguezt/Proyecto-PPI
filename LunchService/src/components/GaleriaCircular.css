@@ -9,6 +9,7 @@
   height: 100%;
   overflow: hidden;
   cursor: grab;
+  position: relative;
 }
 
 .circular-gallery:active {
@@ -16,46 +17,55 @@
 }
 
 /* 🔥 CONTROL DEL CANVAS */
+
 .gallery-wrapper canvas {
   position: absolute;
   top: 0;
   left: 0;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  display: block;
+
   z-index: 1;
 }
 
-/*TITULO*/
+/* TITULO */
 
 .titulo-overlay {
   position: absolute;
   top: 20px;
   left: 50%;
+
   transform: translateX(-50%);
 
-  /* 🔥 forma circular */
   width: 150px;
   height: 150px;
+
   border-radius: 50%;
 
-  /* 🔥 centrado del texto */
   display: flex;
   align-items: center;
   justify-content: center;
+
   text-align: center;
 
-  /* 🔥 estilos visuales */
   color: white;
   font-size: 1.1rem;
   font-weight: bold;
+
   padding: 10px;
 
-  /* 🔥 fondo tipo botón moderno */
   background: #313852;
+
   backdrop-filter: blur(10px);
 
-  /* 🔥 borde y sombra */
   border: 2px solid rgba(255, 255, 255, 0.3);
+
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 
   z-index: 10;
+
   pointer-events: none;
 }

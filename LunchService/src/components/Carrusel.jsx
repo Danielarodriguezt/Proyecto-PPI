@@ -12,7 +12,7 @@ function Carrusel() {
 
         {/* Slide 1 */}
         <div className="carousel-item active vh-100 position-relative">
-          <img src="/Carr1.jpg" className="d-block w-100 h-100" style={{ objectFit: "cover" }} />
+          <img src="./Carrusel1.jpg" className="d-block w-100 h-100" style={{ objectFit: "cover" }} />
 
           <div className="glass-overlay">
             <div className="glass-content">
@@ -24,7 +24,7 @@ function Carrusel() {
 
         {/* Slide 2 */}
         <div className="carousel-item vh-100 position-relative">
-          <img src="/imagenes/comida1.jpg" className="d-block w-100 h-100" style={{ objectFit: "cover" }} />
+          <img src="./Carrusel2.jpg" className="d-block w-100 h-100" style={{ objectFit: "cover" }} />
 
           <div className="glass-overlay">
             <div className="glass-content">
@@ -36,7 +36,7 @@ function Carrusel() {
 
         {/* Slide 3 */}
         <div className="carousel-item vh-100 position-relative">
-          <img src="/imagenes/comida1.jpg" className="d-block w-100 h-100" style={{ objectFit: "cover" }} />
+          <img src="./Carrusel3.jpg" className="d-block w-100 h-100" style={{ objectFit: "cover" }} />
 
           <div className="glass-overlay">
             <div className="glass-content">

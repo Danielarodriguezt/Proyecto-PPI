@@ -18,7 +18,7 @@ function ImagenLateralIZ() {
           <h1>Conoce a nuestro equipo de trabajo</h1>
           <p>
             Nos caracterizamos por un ambiente de trabajo sano.
-            En nuestro equipo prevalece el respesto, el apoyo y la colaboración.
+            En nuestro equipo prevalece el respesto y la colaboración.
 
             <button className="btn-main-IZ">
               Conocer
