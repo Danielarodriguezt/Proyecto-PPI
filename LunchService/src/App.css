@@ -23,10 +23,21 @@ body {
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #1d2234);
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em #c2cbd4);
+}
+
+.nav-logo {
+  width: 260px;
+  height: auto;
+
+  object-fit: contain;
+
+  display: block;
+
+  border-radius: 0 !important;
 }
 
 /*Carrusel*/
@@ -88,26 +99,26 @@ body {
 /*Botones navegación*/
 .btn.btn-login {
   background-color: transparent;
-  border: 2px solid #313852;
-  color: #313852;
+  border: 2px solid #1d2234;
+  color: #1d2234;
   font-weight: bold;
 }
 
 .btn.btn-login:hover {
-  background-color: #313852;
+  background-color: #1d2234;
   color: white;
-  border: 2px solid #313852; /* 🔥 mantener borde */
+  border: 2px solid #1d2234; /* 🔥 mantener borde */
 }
 
 .btn.btn-register {
-  background-color: #313852;
+  background-color: #1d2234;
   color: white;
   border: none;
   font-weight: bold;
 }
 
 .btn.btn-register:hover {
-  background-color: #1f2538; /* un poco más oscuro */
+  background-color: #1d2234; /* un poco más oscuro */
   color: white;
 }
 
@@ -123,7 +134,7 @@ body {
 }
 
 .navbar .nav-link:hover {
-  color: #313852 !important;
+  color: #1d2234 !important;
 }
 
 .navbar {
@@ -134,12 +145,64 @@ body {
 /*Imagen y texto derecha*/
 .text-image-container {
   display: flex;
-  align-items: center; /* centra verticalmente */
+  align-items: center;
   justify-content: space-between;
 
-  margin-top: 130px; /* separación del carrusel */
+  margin-top: 130px;
   padding: 0 40px;
   gap: 40px;
+
+  position: relative;
+  overflow: hidden;
+
+  min-height: 700px; /* 🔥 AQUÍ */
+
+  z-index: 1;
+}
+
+.text-image-container::before {
+  content: "";
+
+  position: absolute;
+
+  width: 350px;
+  height: 350px;
+
+  background: #a3c5e6;
+;
+
+  border-radius: 50%;
+
+  top: -30px;
+  left: -80px;
+
+  z-index: -1;
+}
+
+/* 🔥 CÍRCULO DECORATIVO DERECHO */
+
+.text-image-container::after {
+  content: "";
+
+  position: absolute;
+
+  width: 250px;
+  height: 250px;
+
+  background: #a3c5e6;
+
+  border-radius: 50%;
+
+  bottom: -40px;
+  right: 120px;
+
+  z-index: 0;
+}
+
+.text-box,
+.img-container {
+  position: relative;
+  z-index: 2;
 }
 
 /* Texto izquierda */
@@ -149,16 +212,30 @@ body {
 
   display: flex;
   flex-direction: column;
-  justify-content: center;  /* centra vertical */
-  align-items: center;      /* centra horizontal */
-  text-align: center;       /* centra el texto */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 
   margin-left: 70px;
+
+  /* 🔥 NUEVO DISEÑO */
+  background: #c2cbd459;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  padding: 50px 40px;
+
+  border-radius: 35px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+
+  border: 1px solid rgba(255,255,255,0.4);
 }
 
 .text-box h1 {
   margin-bottom: 20px;
-  color: #313852;
+  color: #1d2234;
 }
 
 .text-box p {
@@ -170,20 +247,28 @@ body {
   flex: 1;
   display: flex;
   justify-content: flex-end;
+
   margin-top: 50px;
   padding-right: 160px;
+
+  position: relative; /* 🔥 IMPORTANTE */
 }
 
+
+/* 🔥 Imagen */
 .img-container img {
+  position: relative;
+  z-index: 2;
+
   display: block;
   width: 100%;
   max-width: 500px;
   height: auto;
 
   border-radius: 50px;
+
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.385);
 }
-
 /* Texto derecha e imagen izquierda*/
 /* Contenedor principal */
 .text-image-container.izquierda {
@@ -213,7 +298,7 @@ body {
 
 /* Botón derecha */
 .btn-main-D {
-  background-color: #313852;
+  background-color: #1d2234;
   color: white;
   border: none;
   padding: 12px 25px;
@@ -231,7 +316,7 @@ body {
 }
 
 .btn-main-IZ {
-  background-color: #313852;
+  background-color: #1f2538;
   color: white;
   border: none;
   padding: 12px 25px;
@@ -299,12 +384,12 @@ body {
 
 /* TARJETA */
 
-.card {
+.custom-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  background: white;
+  background: #c2cbd4;
   border-radius: 20px;
   padding: 20px;
   width: 320px;
@@ -315,14 +400,14 @@ body {
 
 /* Hover efecto */
 
-.card:hover {
+.custom-card:hover {
   transform: translateY(-10px);
 }
 
 
 /* IMAGEN */
 
-.card img {
+.custom-card img {
   width: 100%;
   border-radius: 15px;
   margin-bottom: 15px;
@@ -331,13 +416,13 @@ body {
 
 /* TEXTO */
 
-.card h3 {
-  color: #313852;
+.custom-card h3 {
+  color: #1f2538;
   margin-bottom: 10px;
   text-align: center;
 }
 
-.card p {
+.custom-card p {
   color: #555;
 }
 
@@ -347,7 +432,7 @@ body {
 .btn-card {
   margin-top: 15px;
 
-  background-color: #313852;
+  background-color: #1f2538;
   color: white;
   border: none;
 
@@ -405,7 +490,7 @@ body {
   padding: 20px;
   text-align: center;
 
-  background: #313852;
+  background: #1f2538;
   color: #fff;
   font-size: 0.9rem;
 }

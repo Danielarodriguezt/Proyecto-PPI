@@ -7,8 +7,8 @@ function ImagenLateralD() {
                 <h1>Bienvenidos</h1>
                 <p>
                     LunchService es una plataforma que permite gestionar
-                    programas de alimentación escolar en las instituciones educativas,
-                    facilitando así el control de la información de los prohramas ofrecidos.
+                    programas de alimentación escolar en las instituciones educativas. 
+
                 </p>
 
                 <button className="btn-main-D">

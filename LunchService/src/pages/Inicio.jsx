@@ -4,7 +4,7 @@ import ImagenLateralD from '../components/ImgLatD'
 import ImagenLateralIZ from '../components/ImgLatIZ'
 import Tarjetas from '../components/TarjetasIni';
 import Footer from '../components/Footer';
-import CircularGallery from '../components/CircularGallery';
+import GaleriaCircular from '../components/GaleriaCircular';
 
 
 function Inicio() {
@@ -15,7 +15,7 @@ function Inicio() {
       <ImagenLateralD />
       <ImagenLateralIZ />
       <Tarjetas />
-      <CircularGallery />
+      <GaleriaCircular />
       <Footer />
     </>
   );
