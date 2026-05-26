@@ -1,6 +1,7 @@
 .pagina-registro {
     min-height: 100vh;
-
+    display: flex;
+    flex-direction: column;
     background: linear-gradient(
         135deg,
         #d9d4c8,
@@ -22,9 +23,8 @@
 
 /* Título */
 .pagina-registro h1 {
-    color: #F7F4EB;
+    color: #313852;
     font-size: 45px;
-    letter-spacing: 1px;
 }
 
 /* Formulario */
@@ -107,7 +107,7 @@ button:hover {
 }
 
 /*Animación para los inputs*/
-.fade {
+.campos-form {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -155,14 +155,13 @@ button:hover {
 /* CONTENEDOR GENERAL */
 .contenedor-principal {
     display: flex;
-    min-height: 100vh;
-    overflow: hidden;
+    flex: 1;
 }
 
 /* LADO IZQUIERDO */
 .lado-imagen {
     width: 50%;
-    height: 100vh;
+    overflow: hidden;
 }
 
 .lado-imagen img {
@@ -170,7 +169,6 @@ button:hover {
     height: 100%;
     object-fit: cover;
     filter: brightness(0.85);
-    transition: transform 0.5s ease;
 }
 
 .lado-imagen img:hover {
@@ -182,10 +180,10 @@ button:hover {
     width: 50%;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     overflow-y: auto;
-    padding-top: 20px;
-    padding-bottom: 40px;
+    padding-top: 40px 20px;
+    box-sizing: border-box;
 }
 
 /* ANIMACIÓN FORMULARIO */

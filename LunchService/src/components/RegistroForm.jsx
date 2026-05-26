@@ -215,7 +215,7 @@ function RegistroForm() {
 
             {/* FORMULARIO ESTUDIANTE */}
             {formData.tipoUsuario === "estudiante" && (
-                <div className="fade" key="estudiante">
+                <div className="campos-form" key="estudiante">
                     <input
                         type="text"
                         name="nombre"
@@ -281,7 +281,7 @@ function RegistroForm() {
 
             {/* FORMULARIO ACUDIENTE */}
             {formData.tipoUsuario === "acudiente" && (
-                <div className="fade" key="acudiente">
+                <div className="campos-form" key="acudiente">
                     <input
                         type="text"
                         name="documento"
@@ -326,7 +326,7 @@ function RegistroForm() {
 
             {/* FORMULARIO ADMIN */}
             {formData.tipoUsuario === "admin" && (
-                <div className="fade" key="admin">
+                <div className="campos-form" key="admin">
                     <input
                         type="text"
                         name="nombre"

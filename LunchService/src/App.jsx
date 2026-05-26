@@ -5,6 +5,9 @@ import Contacto from "./pages/Contacto";
 import './App.css';
 import Registro from "./pages/Registro";
 import IniciarSesion from "./pages/IniciarSesion";
+import PerfilEstudiante from "./pages/PerfilEstudiante";
+import PerfilAcudiente from "./pages/PerfilAcudiente";
+import PerfilAdmin from "./pages/PerfilAdmin";
 
 function App() {
   return (
@@ -17,6 +20,9 @@ function App() {
         <Route path="/Contacto" element={<Contacto />} />
         <Route path="/IniciarSesion" element={<IniciarSesion />} />
         <Route path="/Registro" element={<Registro />} />
+        <Route path="/PerfilEstudiante" element={<PerfilEstudiante />} />
+        <Route path="/PerfilAcudiente" element={<PerfilAcudiente />} />
+        <Route path="/PerfilAdmin" element={<PerfilAdmin />} />
         
       </Routes>
     </BrowserRouter>

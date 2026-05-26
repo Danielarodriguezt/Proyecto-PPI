@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import "../components/registro.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MenuNav from "../components/Menu.jsx";
 import Footer from "../components/Footer.jsx";
 
 //Se crea la función principal de iniciar sesión y también para poder cambiar a registro
 function IniciarSesion() {
+
+    const navigate = useNavigate();
 
     //Se guardan los datos del formulario
     const [datos, setDatos] = useState({
@@ -30,7 +32,7 @@ function IniciarSesion() {
         });
     };
 
-    //Función que se ejecuta cuanso se escribe en los inputs
+    //Función que se ejecuta cuando se escribe en los inputs
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -153,10 +155,15 @@ function IniciarSesion() {
 
         //-----------------------------Resultado-----------------------------
         if (usuarioEncontrado) {
+            localStorage.setItem("sesionActiva", JSON.stringify(usuarioEncontrado));
             Swal.fire({
                 title: "Bienvenido 🎉",
                 text: `Hola ${usuarioEncontrado.nombre}`,
                 icon: "success"
+            }).then(() => {
+                if (usuarioEncontrado.tipoUsuario === "estudiante") navigate("/PerfilEstudiante");
+                else if (usuarioEncontrado.tipoUsuario === "acudiente") navigate("/PerfilAcudiente");
+                else if (usuarioEncontrado.tipoUsuario === "admin") navigate("/PerfilAdmin");
             });
             limpiarFormulario();
         } else {
@@ -170,144 +177,144 @@ function IniciarSesion() {
     };
 
     return (
-    <div className="pagina-registro">
-        <MenuNav />
+        <div className="pagina-registro">
+            <MenuNav />
 
-        <div className="contenedor-principal">
+            <div className="contenedor-principal">
 
-            {/* LADO IZQUIERDO */}
-            <div className="lado-imagen">
-                <img src="../public/logo_ls.jpg" alt="Colegio"/>
-            </div>
+                {/* LADO IZQUIERDO */}
+                <div className="lado-imagen">
+                    <img src="../public/logo_ls.jpg" alt="Colegio" />
+                </div>
 
-            {/* LADO DERECHO */}
-            <div className="lado-formulario">
+                {/* LADO DERECHO */}
+                <div className="lado-formulario">
 
-                <div className="registro-container">
+                    <div className="registro-container">
 
-                    <h1>Iniciar Sesión</h1>
+                        <h1>Iniciar Sesión</h1>
 
-                    <form className="formulario" onSubmit={handleSubmit}>
-                        
-                        <select
-                            name="tipoUsuario"
-                            value={datos.tipoUsuario}
-                            onChange={handleChange}
-                        >
-                            <option value="">Seleccione tipo de usuario</option>
-                            <option value="estudiante">Estudiante</option>
-                            <option value="acudiente">Acudiente</option>
-                            <option value="admin">Administrador</option>
-                        </select>
+                        <form className="formulario" onSubmit={handleSubmit}>
 
-                        {/*Administrador */}
-                        {datos.tipoUsuario === "admin" && (
-                            <>
-                                <input
-                                    type="email"
-                                    name="correo"
-                                    placeholder="Correo"
-                                    value={datos.correo}
-                                    onChange={handleChange}
-                                />
+                            <select
+                                name="tipoUsuario"
+                                value={datos.tipoUsuario}
+                                onChange={handleChange}
+                            >
+                                <option value="">Seleccione tipo de usuario</option>
+                                <option value="estudiante">Estudiante</option>
+                                <option value="acudiente">Acudiente</option>
+                                <option value="admin">Administrador</option>
+                            </select>
 
-                                <input
-                                    type="password"
-                                    name="documento"
-                                    placeholder="Documento"
-                                    value={datos.documento}
-                                    onChange={handleChange}
-                                />
-                            </>
-                        )}
+                            {/*Administrador */}
+                            {datos.tipoUsuario === "admin" && (
+                                <>
+                                    <input
+                                        type="email"
+                                        name="correo"
+                                        placeholder="Correo"
+                                        value={datos.correo}
+                                        onChange={handleChange}
+                                    />
 
-                        {/*Acudiente*/}
-                        {datos.tipoUsuario === "acudiente" && (
-                            <>
-                                <input
-                                    type="text"
-                                    name="documento"
-                                    placeholder="Documento"
-                                    value={datos.documento}
-                                    onChange={handleChange}
-                                />
+                                    <input
+                                        type="password"
+                                        name="documento"
+                                        placeholder="Documento"
+                                        value={datos.documento}
+                                        onChange={handleChange}
+                                    />
+                                </>
+                            )}
 
-                                <input
-                                    type="text"
-                                    name="telefono"
-                                    placeholder="Teléfono"
-                                    value={datos.telefono}
-                                    onChange={handleChange}
-                                />
-                            </>
-                        )}
+                            {/*Acudiente*/}
+                            {datos.tipoUsuario === "acudiente" && (
+                                <>
+                                    <input
+                                        type="text"
+                                        name="documento"
+                                        placeholder="Documento"
+                                        value={datos.documento}
+                                        onChange={handleChange}
+                                    />
 
-                        {/*Estudiante*/}
-                        {datos.tipoUsuario === "estudiante" && (
-                            <>
-                                <input
-                                    type="text"
-                                    name="nombre"
-                                    placeholder="Nombre"
-                                    value={datos.nombre}
-                                    onChange={handleChange}
-                                />
+                                    <input
+                                        type="text"
+                                        name="telefono"
+                                        placeholder="Teléfono"
+                                        value={datos.telefono}
+                                        onChange={handleChange}
+                                    />
+                                </>
+                            )}
 
-                                <select
-                                    name="grupo"
-                                    value={datos.grupo}
-                                    onChange={handleChange}
-                                >
-                                    <option value="">Seleccione tu grado</option>
-                                    <option value="Jardin">Jardín</option>
-                                    <option value="Preescolar">Preescolar</option>
-                                    <option value="1">1°</option>
-                                    <option value="2">2°</option>
-                                    <option value="3">3°</option>
-                                    <option value="4">4°</option>
-                                    <option value="5">5°</option>
-                                    <option value="6">6°</option>
-                                    <option value="7">7°</option>
-                                    <option value="8">8°</option>
-                                    <option value="9">9°</option>
-                                    <option value="10">10°</option>
-                                    <option value="11">11°</option>
-                                </select>
+                            {/*Estudiante*/}
+                            {datos.tipoUsuario === "estudiante" && (
+                                <>
+                                    <input
+                                        type="text"
+                                        name="nombre"
+                                        placeholder="Nombre"
+                                        value={datos.nombre}
+                                        onChange={handleChange}
+                                    />
 
-                                <input
-                                    type="email"
-                                    name="correo"
-                                    placeholder="Correo"
-                                    value={datos.correo}
-                                    onChange={handleChange}
-                                />
-                            </>
-                        )}
+                                    <select
+                                        name="grupo"
+                                        value={datos.grupo}
+                                        onChange={handleChange}
+                                    >
+                                        <option value="">Seleccione tu grado</option>
+                                        <option value="Jardin">Jardín</option>
+                                        <option value="Preescolar">Preescolar</option>
+                                        <option value="1">1°</option>
+                                        <option value="2">2°</option>
+                                        <option value="3">3°</option>
+                                        <option value="4">4°</option>
+                                        <option value="5">5°</option>
+                                        <option value="6">6°</option>
+                                        <option value="7">7°</option>
+                                        <option value="8">8°</option>
+                                        <option value="9">9°</option>
+                                        <option value="10">10°</option>
+                                        <option value="11">11°</option>
+                                    </select>
 
-                        <button type="submit">Ingresar</button>
+                                    <input
+                                        type="email"
+                                        name="correo"
+                                        placeholder="Correo"
+                                        value={datos.correo}
+                                        onChange={handleChange}
+                                    />
+                                </>
+                            )}
 
-                    </form>
+                            <button type="submit">Ingresar</button>
 
-                    <p>
-                        ¿No te encuentras registrado?{" "}
+                        </form>
 
-                        <Link
-                            to="/Registro"
-                            className="link"
-                        >
-                            Regístrate
-                        </Link>
-                    </p>
+                        <p>
+                            ¿No te encuentras registrado?{" "}
+
+                            <Link
+                                to="/Registro"
+                                className="link"
+                            >
+                                Regístrate
+                            </Link>
+                        </p>
+
+                    </div>
 
                 </div>
 
             </div>
 
+            <Footer />
         </div>
-
-        <Footer />
-    </div>
-);
+    );
 }
 
 export default IniciarSesion;
