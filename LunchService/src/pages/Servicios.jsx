@@ -1,12 +1,12 @@
 import Footer from "../components/Footer";
 import MenuNav from "../components/Menu";
-import TarjetasServicios from "../components/TarjetasServicios";
+import Programas from "../components/Programas";
 
 function Servicios() {
     return (
         <>
             <MenuNav />
-            <TarjetasServicios />
+            <Programas />
             <Footer />
         </>
     );

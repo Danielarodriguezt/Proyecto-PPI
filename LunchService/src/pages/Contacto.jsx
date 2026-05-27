@@ -1,15 +1,15 @@
 import MenuNav from "../components/Menu";
-import contacto from "../components/Contacto";
 import Footer from "../components/Footer";
+import ContactServ from "../components/ContactServ";
 
-function Contacto(){
-    return(
-        <>
-        <MenuNav />
-        <contacto />
-        <Footer />
-        </>
-    );
+function Contacto() {
+  return (
+    <>
+      <MenuNav />
+      <ContactServ />
+      <Footer />
+    </>
+  );
 }
 
 export default Contacto;
