@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../components/perfiles.css";
+import Swal from "sweetalert2";
 
 function PerfilAdmin() {
     const navigate = useNavigate();
     const [usuario, setUsuario] = useState(null);
     const [seccionActiva, setSeccionActiva] = useState("inicio");
     const [usuarios, setUsuarios] = useState([]);
+    const [filtroUsuario, setFiltroUsuario] = useState("todos");
+    const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
+    const [usuarioEditando, setUsuarioEditando] = useState(null);
 
     useEffect(() => {
         const sesion = JSON.parse(localStorage.getItem("sesionActiva"));
@@ -45,6 +49,43 @@ function PerfilAdmin() {
     const estudiantes = usuarios.filter(u => u.tipoUsuario === "estudiante");
     const acudientes = usuarios.filter(u => u.tipoUsuario === "acudiente");
     const admins = usuarios.filter(u => u.tipoUsuario === "admin");
+
+    // Ver perfil
+    const verPerfil = (u) => {
+        setUsuarioSeleccionado(u);
+        setUsuarioEditando(null);
+    };
+
+    // Eliminar usuario
+    const eliminarUsuario = (u) => {
+        Swal.fire({
+            title: "¿Eliminar usuario?",
+            text: `¿Estás seguro de eliminar a ${u.nombre}?`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#d33"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const nuevos = usuarios.filter(x => x !== u);
+                localStorage.setItem("usuarios", JSON.stringify(nuevos));
+                setUsuarios(nuevos);
+                setUsuarioSeleccionado(null);
+                Swal.fire("Eliminado", `${u.nombre} fue eliminado`, "success");
+            }
+        });
+    };
+
+    // Guardar edición
+    const guardarEdicion = () => {
+        const nuevos = usuarios.map(x => x === usuarioSeleccionado ? usuarioEditando : x);
+        localStorage.setItem("usuarios", JSON.stringify(nuevos));
+        setUsuarios(nuevos);
+        setUsuarioSeleccionado(usuarioEditando);
+        setUsuarioEditando(null);
+        Swal.fire("Guardado", "Usuario actualizado correctamente", "success");
+    };
 
     return (
         <div className="perfil-pagina">
@@ -145,20 +186,155 @@ function PerfilAdmin() {
                 {/* TODOS LOS USUARIOS */}
                 {seccionActiva === "usuarios" && (
                     <div className="seccion-fade">
-                        <h1>👥 Todos los Usuarios</h1>
-                        <p className="subtitulo">{usuarios.length} usuario(s) registrado(s) en el sistema</p>
 
-                        {["estudiante", "acudiente", "admin"].map(tipo => {
-                            const lista = usuarios.filter(u => u.tipoUsuario === tipo);
-                            if (lista.length === 0) return null;
-                            return (
-                                <div key={tipo} style={{ marginBottom: "30px" }}>
-                                    <h3 style={{ color: "#313852", textTransform: "capitalize", marginBottom: "12px" }}>
-                                        {tipo === "estudiante" ? "🎒 Estudiantes" : tipo === "acudiente" ? "👨‍👩‍👧 Acudientes" : "🛡️ Administradores"}
-                                    </h3>
-                                    <div className="tabla-menu">
-                                        {lista.map((u, i) => (
-                                            <div className="fila-menu" key={i}>
+                        {/* VISTA DETALLE DE USUARIO */}
+                        {usuarioSeleccionado ? (
+                            <>
+                                <button className="btn-volver" onClick={() => { setUsuarioSeleccionado(null); setUsuarioEditando(null); }}>
+                                    ← Volver a la lista
+                                </button>
+
+                                <h1>👤 Perfil de Usuario</h1>
+
+                                {/* MODO EDICIÓN */}
+                                {usuarioEditando ? (
+                                    <div className="tarjeta-detalle">
+                                        <div className="avatar-circulo grande">
+                                            {usuarioEditando.nombre.charAt(0).toUpperCase()}
+                                        </div>
+                                        <span className={`badge-tipo ${usuarioEditando.tipoUsuario}`}>{usuarioEditando.tipoUsuario}</span>
+
+                                        <div className="detalle-campo">
+                                            <p className="label">Nombre</p>
+                                            <input
+                                                className="input-edicion"
+                                                value={usuarioEditando.nombre}
+                                                onChange={e => setUsuarioEditando({ ...usuarioEditando, nombre: e.target.value })}
+                                            />
+                                        </div>
+
+                                        {usuarioEditando.correo !== undefined && (
+                                            <div className="detalle-campo">
+                                                <p className="label">Correo</p>
+                                                <input
+                                                    className="input-edicion"
+                                                    value={usuarioEditando.correo}
+                                                    onChange={e => setUsuarioEditando({ ...usuarioEditando, correo: e.target.value })}
+                                                />
+                                            </div>
+                                        )}
+
+                                        {usuarioEditando.telefono !== undefined && (
+                                            <div className="detalle-campo">
+                                                <p className="label">Teléfono</p>
+                                                <input
+                                                    className="input-edicion"
+                                                    value={usuarioEditando.telefono}
+                                                    onChange={e => setUsuarioEditando({ ...usuarioEditando, telefono: e.target.value })}
+                                                />
+                                            </div>
+                                        )}
+
+                                        <div className="detalle-acciones">
+                                            <button className="btn-guardar" onClick={guardarEdicion}>💾 Guardar cambios</button>
+                                            <button className="btn-cancelar" onClick={() => setUsuarioEditando(null)}>✕ Cancelar</button>
+                                        </div>
+                                    </div>
+
+                                ) : (
+                                    /* MODO VISTA */
+                                    <div className="tarjeta-detalle">
+                                        <div className="avatar-circulo grande">
+                                            {usuarioSeleccionado.nombre.charAt(0).toUpperCase()}
+                                        </div>
+                                        <span className={`badge-tipo ${usuarioSeleccionado.tipoUsuario}`}>{usuarioSeleccionado.tipoUsuario}</span>
+
+                                        <div className="detalle-campo">
+                                            <p className="label">Nombre completo</p>
+                                            <p className="valor">{usuarioSeleccionado.nombre}</p>
+                                        </div>
+                                        {usuarioSeleccionado.correo && (
+                                            <div className="detalle-campo">
+                                                <p className="label">Correo</p>
+                                                <p className="valor">{usuarioSeleccionado.correo}</p>
+                                            </div>
+                                        )}
+                                        {usuarioSeleccionado.documento && (
+                                            <div className="detalle-campo">
+                                                <p className="label">Documento</p>
+                                                <p className="valor">{usuarioSeleccionado.documento}</p>
+                                            </div>
+                                        )}
+                                        {usuarioSeleccionado.telefono && (
+                                            <div className="detalle-campo">
+                                                <p className="label">Teléfono</p>
+                                                <p className="valor">{usuarioSeleccionado.telefono}</p>
+                                            </div>
+                                        )}
+                                        {usuarioSeleccionado.grupo && (
+                                            <div className="detalle-campo">
+                                                <p className="label">Grupo</p>
+                                                <p className="valor">{usuarioSeleccionado.grupo}</p>
+                                            </div>
+                                        )}
+                                        {usuarioSeleccionado.institucion && (
+                                            <div className="detalle-campo">
+                                                <p className="label">Institución</p>
+                                                <p className="valor">{usuarioSeleccionado.institucion.replace(/_/g, " ")}</p>
+                                            </div>
+                                        )}
+                                        {usuarioSeleccionado.estudiante && (
+                                            <div className="detalle-campo">
+                                                <p className="label">Estudiante a cargo</p>
+                                                <p className="valor">{usuarioSeleccionado.estudiante}</p>
+                                            </div>
+                                        )}
+
+                                        <div className="detalle-acciones">
+                                            <button className="btn-editar-perfil" onClick={() => setUsuarioEditando({ ...usuarioSeleccionado })}>
+                                                ✏️ Editar
+                                            </button>
+                                            <button className="btn-eliminar" onClick={() => eliminarUsuario(usuarioSeleccionado)}>
+                                                🗑️ Eliminar
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </>
+
+                        ) : (
+                            /* LISTA DE USUARIOS */
+                            <>
+                                <h1>👥 Usuarios</h1>
+                                <p className="subtitulo">{usuarios.length} usuario(s) registrado(s) en el sistema</p>
+
+                                <div className="filtro-usuarios">
+                                    {[
+                                        { valor: "todos", label: "👥 Todos" },
+                                        { valor: "estudiante", label: "🎒 Estudiantes" },
+                                        { valor: "acudiente", label: "👨‍👩‍👧 Acudientes" },
+                                        { valor: "admin", label: "🛡️ Administradores" },
+                                    ].map(btn => (
+                                        <button
+                                            key={btn.valor}
+                                            className={`btn-filtro ${filtroUsuario === btn.valor ? "activo" : ""}`}
+                                            onClick={() => setFiltroUsuario(btn.valor)}
+                                        >
+                                            {btn.label}
+                                            <span className="filtro-count">
+                                                {btn.valor === "todos"
+                                                    ? usuarios.length
+                                                    : usuarios.filter(u => u.tipoUsuario === btn.valor).length}
+                                            </span>
+                                        </button>
+                                    ))}
+                                </div>
+
+                                <div className="tabla-menu" style={{ marginTop: "16px" }}>
+                                    {usuarios
+                                        .filter(u => filtroUsuario === "todos" || u.tipoUsuario === filtroUsuario)
+                                        .map((u, i) => (
+                                            <div className="fila-menu fila-clickeable" key={i} onClick={() => verPerfil(u)}>
                                                 <div className="dia-col">
                                                     <div className="avatar-mini">{u.nombre.charAt(0).toUpperCase()}</div>
                                                 </div>
@@ -169,15 +345,16 @@ function PerfilAdmin() {
                                                 <div className="estado-col">
                                                     <span className={`badge-tipo ${u.tipoUsuario}`}>{u.tipoUsuario}</span>
                                                 </div>
+                                                <div style={{ color: "#c5cad4", fontSize: "18px" }}>›</div>
                                             </div>
-                                        ))}
-                                    </div>
+                                        ))
+                                    }
                                 </div>
-                            );
-                        })}
 
-                        {usuarios.length === 0 && (
-                            <p style={{ color: "#666", marginTop: "20px" }}>No hay usuarios registrados aún.</p>
+                                {usuarios.filter(u => filtroUsuario === "todos" || u.tipoUsuario === filtroUsuario).length === 0 && (
+                                    <p style={{ color: "#c5cad4", marginTop: "20px" }}>No hay usuarios de este tipo registrados.</p>
+                                )}
+                            </>
                         )}
                     </div>
                 )}
