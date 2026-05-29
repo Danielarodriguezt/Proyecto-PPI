@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./Programas.css";
+import { Link } from "react-router-dom";
 
 const programas = [
   {
@@ -112,7 +113,9 @@ export default function Programas() {
           <p className="pg-nota">{p.nota}</p>
           <div className="pg-precio-row">
             <span className="pg-precio">{p.precio}</span>
-            <button className="pg-cta">Solicitar información</button>
+            <Link to="/Contacto">
+              <button className="pg-cta">Solicitar información</button>
+            </Link>
           </div>
         </div>
       </div>
