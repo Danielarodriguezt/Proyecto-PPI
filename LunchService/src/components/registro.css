@@ -2,12 +2,25 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(
-        135deg,
-        #d9d4c8,
-        #9ea8b5,
-        #313852
-    );
+    background: rgb(249, 241, 227);
+} 
+
+.text-image-container::after {
+  content: "";
+
+  position: absolute;
+
+  width: 250px;
+  height: 250px;
+
+  background: #a3c5e6;
+
+  border-radius: 50%;
+
+  bottom: -40px;
+  right: 120px;
+
+  z-index: 0;
 }
 
 /* Contenedor principal */
@@ -33,7 +46,7 @@
     max-width: 400px;
     padding: 35px;
     border-radius: 25px;
-    background: rgba(255, 255, 255, 0.22);
+    background: rgba(47, 41, 102, 0.412);
     backdrop-filter: blur(14px);
     overflow: visible;
     min-height: auto;
