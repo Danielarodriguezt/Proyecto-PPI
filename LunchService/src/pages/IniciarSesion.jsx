@@ -1,178 +1,89 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import "../components/registro.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import MenuNav from "../components/Menu.jsx";
 import Footer from "../components/Footer.jsx";
 
-//Se crea la función principal de iniciar sesión y también para poder cambiar a registro
 function IniciarSesion() {
-
     const navigate = useNavigate();
 
-    //Se guardan los datos del formulario
     const [datos, setDatos] = useState({
         correo: "",
-        documento: "",
-        tipoUsuario: "",
-        telefono: "",
-        nombre: "",
-        grupo: ""
+        contrasena: "",
+        tipoUsuario: ""
     });
 
-    // Limpiar el formulario
-    const limpiarFormulario = () => {
+    const handleChange = (e) => {
         setDatos({
-            tipoUsuario: "",
-            correo: "",
-            documento: "",
-            telefono: "",
-            nombre: "",
-            grupo: ""
+            ...datos,
+            [e.target.name]: e.target.value
         });
     };
 
-    //Función que se ejecuta cuando se escribe en los inputs
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-
-        if (name === "tipoUsuario") {
-            setDatos({
-                tipoUsuario: value,
-                correo: "",
-                documento: "",
-                telefono: "",
-                nombre: "",
-                grupo: "",
-            });
-        } else {
-            setDatos({
-                ...datos,
-                [name]: value
-            });
-        }
+    const limpiarFormulario = () => {
+        setDatos({
+            correo: "",
+            contrasena: "",
+            tipoUsuario: ""
+        });
     };
 
-    //Función que se ejecuta al enviar al formulario
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // ------------------------------------------VALIDADCIONES---------------------
-        //Validar cada tipo de usario
-        if (!datos.tipoUsuario) {
-            Swal.fire({
-                title: "Error",
-                text: "Selecciona el tipo de usuario",
-                icon: "error"
-            });
+        if (!datos.tipoUsuario || !datos.correo || !datos.contrasena) {
+            Swal.fire("Error", "Completa todos los campos", "error");
             return;
         }
 
-        //Administrador
-        if (datos.tipoUsuario === "admin") {
-            if (!datos.correo || !datos.documento) {
-                Swal.fire({
-                    title: "Error",
-                    text: "Completa correo y documento",
-                    icon: "error"
-                });
-                return;
-            }
-        }
-
-        // Acudiente
-        if (datos.tipoUsuario === "acudiente") {
-            if (!datos.documento || !datos.telefono) {
-                Swal.fire({
-                    title: "Error",
-                    text: "Completa documento y teléfono",
-                    icon: "error"
-                });
-                return;
-            }
-        }
-
-        // Estudiante
-        if (datos.tipoUsuario === "estudiante") {
-            if (!datos.nombre.trim() || !datos.grupo || !datos.correo) {
-                Swal.fire({
-                    title: "Error",
-                    text: "Completa todos los campos",
-                    icon: "error"
-                });
-                return;
-            }
-
-            if (datos.nombre.trim().split(" ").length < 2) {
-                Swal.fire({
-                    title: "Error",
-                    text: "Ingresa nombre y apellido",
-                    icon: "error"
-                });
-                return;
-            }
-        }
-
-        //----------------------------------Buscar usuario------------------------------------
-        console.log("LOGIN:", datos);
-
-        const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
-        console.log("USUARIOS:", usuarios);
-
-        const usuarioEncontrado = usuarios.find((user) => {
-
-            //Administrador
-            if (datos.tipoUsuario === "admin") {
-                return (
-                    user.tipoUsuario === "admin" &&
-                    user.correo === datos.correo &&
-                    String(user.documento) === datos.documento
-                );
-            }
-
-            //Acudiente
-            if (datos.tipoUsuario === "acudiente") {
-                return (
-                    user.tipoUsuario === "acudiente" &&
-                    String(user.documento) === datos.documento &&
-                    user.telefono === datos.telefono
-                );
-            }
-
-            //Estudiante
-            if (datos.tipoUsuario === "estudiante") {
-                return (
-                    user.tipoUsuario === "estudiante" &&
-                    user.correo.trim() === datos.correo.trim() &&
-                    user.grupo === datos.grupo &&
-                    user.nombre.trim().toLowerCase() === datos.nombre.trim().toLowerCase()
-                );
-            }
-
-            return false;
-        });
-
-        //-----------------------------Resultado-----------------------------
-        if (usuarioEncontrado) {
-            localStorage.setItem("sesionActiva", JSON.stringify(usuarioEncontrado));
-            Swal.fire({
-                title: "Bienvenido 🎉",
-                text: `Hola ${usuarioEncontrado.nombre}`,
-                icon: "success"
-            }).then(() => {
-                if (usuarioEncontrado.tipoUsuario === "estudiante") navigate("/PerfilEstudiante");
-                else if (usuarioEncontrado.tipoUsuario === "acudiente") navigate("/PerfilAcudiente");
-                else if (usuarioEncontrado.tipoUsuario === "admin") navigate("/PerfilAdmin");
+        try {
+            const response = await fetch("http://localhost:5012/api/usuarios/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    correo: datos.correo,
+                    contrasena: datos.contrasena,
+                    rol:
+                        datos.tipoUsuario === "admin"
+                            ? "Administrador"
+                            : datos.tipoUsuario === "acudiente"
+                                ? "Acudiente"
+                                : "Estudiante"
+                })
             });
-            limpiarFormulario();
-        } else {
-            Swal.fire({
-                title: "Error",
-                text: "Usuario no encontrado",
-                icon: "error"
-            });
-            limpiarFormulario();
+
+            if (response.ok) {
+                const usuario = await response.json();
+
+                console.log(usuario);
+
+                localStorage.setItem("sesionActiva", JSON.stringify(usuario));
+
+                Swal.fire({
+                    title: "Bienvenido 🎉",
+                    text: `Hola ${usuario.correo}`,
+                    icon: "success",
+                    confirmButtonText: "Continuar"
+                }).then(() => {
+                    if (usuario.rol === "Estudiante") {
+                        navigate("/PerfilEstudiante");
+                    } else if (usuario.rol === "Acudiente") {
+                        navigate("/PerfilAcudiente");
+                    } else if (usuario.rol === "Administrador") {
+                        navigate("/PerfilAdmin");
+                    }
+                });
+
+                limpiarFormulario();
+            } else {
+                Swal.fire("Error", "Correo o contraseña incorrectos", "error");
+            }
+        } catch (error) {
+            console.log(error);
+            Swal.fire("Error", "No se pudo conectar con el servidor", "error");
         }
     };
 
@@ -182,19 +93,17 @@ function IniciarSesion() {
 
             <div className="contenedor-principal">
 
-                {/* LADO IZQUIERDO */}
                 <div className="lado-imagen">
-                    <img src="../public/logo_ls.jpg" alt="Colegio" />
+                    <img src="../public/logo_ls.jpg" alt="logo" />
                 </div>
 
-                {/* LADO DERECHO */}
                 <div className="lado-formulario">
 
                     <div className="registro-container">
 
                         <h1>Iniciar Sesión</h1>
 
-                        <form className="formulario" onSubmit={handleSubmit}>
+                        <form className="formulario" onSubmit={handleSubmit} autoComplete="off">
 
                             <select
                                 name="tipoUsuario"
@@ -207,101 +116,32 @@ function IniciarSesion() {
                                 <option value="admin">Administrador</option>
                             </select>
 
-                            {/*Administrador */}
-                            {datos.tipoUsuario === "admin" && (
-                                <>
-                                    <input
-                                        type="email"
-                                        name="correo"
-                                        placeholder="Correo"
-                                        value={datos.correo}
-                                        onChange={handleChange}
-                                    />
+                            <input
+                                type="email"
+                                name="correo"
+                                placeholder="Correo"
+                                value={datos.correo}
+                                onChange={handleChange}
+                                autoComplete="off"
+                                spellCheck="false"
+                            />
 
-                                    <input
-                                        type="password"
-                                        name="documento"
-                                        placeholder="Documento"
-                                        value={datos.documento}
-                                        onChange={handleChange}
-                                    />
-                                </>
-                            )}
-
-                            {/*Acudiente*/}
-                            {datos.tipoUsuario === "acudiente" && (
-                                <>
-                                    <input
-                                        type="text"
-                                        name="documento"
-                                        placeholder="Documento"
-                                        value={datos.documento}
-                                        onChange={handleChange}
-                                    />
-
-                                    <input
-                                        type="text"
-                                        name="telefono"
-                                        placeholder="Teléfono"
-                                        value={datos.telefono}
-                                        onChange={handleChange}
-                                    />
-                                </>
-                            )}
-
-                            {/*Estudiante*/}
-                            {datos.tipoUsuario === "estudiante" && (
-                                <>
-                                    <input
-                                        type="text"
-                                        name="nombre"
-                                        placeholder="Nombre"
-                                        value={datos.nombre}
-                                        onChange={handleChange}
-                                    />
-
-                                    <select
-                                        name="grupo"
-                                        value={datos.grupo}
-                                        onChange={handleChange}
-                                    >
-                                        <option value="">Seleccione tu grado</option>
-                                        <option value="Jardin">Jardín</option>
-                                        <option value="Preescolar">Preescolar</option>
-                                        <option value="1">1°</option>
-                                        <option value="2">2°</option>
-                                        <option value="3">3°</option>
-                                        <option value="4">4°</option>
-                                        <option value="5">5°</option>
-                                        <option value="6">6°</option>
-                                        <option value="7">7°</option>
-                                        <option value="8">8°</option>
-                                        <option value="9">9°</option>
-                                        <option value="10">10°</option>
-                                        <option value="11">11°</option>
-                                    </select>
-
-                                    <input
-                                        type="email"
-                                        name="correo"
-                                        placeholder="Correo"
-                                        value={datos.correo}
-                                        onChange={handleChange}
-                                    />
-                                </>
-                            )}
+                            <input
+                                type="password"
+                                name="contrasena"
+                                placeholder="Contraseña"
+                                value={datos.contrasena}
+                                onChange={handleChange}
+                                autoComplete="new-password"
+                            />
 
                             <button type="submit">Ingresar</button>
 
                         </form>
 
                         <p>
-                            ¿No te encuentras registrado?{" "}
-
-                            <Link
-                                to="/Registro"
-                                className="link"
-                            >
+                            ¿No tienes cuenta?{" "}
+                            <Link to="/Registro" className="link">
                                 Regístrate
                             </Link>
                         </p>
@@ -309,7 +149,6 @@ function IniciarSesion() {
                     </div>
 
                 </div>
-
             </div>
 
             <Footer />

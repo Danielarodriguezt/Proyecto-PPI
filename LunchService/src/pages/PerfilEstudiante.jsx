@@ -9,7 +9,8 @@ function PerfilEstudiante() {
 
     useEffect(() => {
         const sesion = JSON.parse(localStorage.getItem("sesionActiva"));
-        if (!sesion || sesion.tipoUsuario !== "estudiante") {
+
+        if (!sesion || sesion.rol !== "Estudiante") {
             navigate("/IniciarSesion");
         } else {
             setUsuario(sesion);

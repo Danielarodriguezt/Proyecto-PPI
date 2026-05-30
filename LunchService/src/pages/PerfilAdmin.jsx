@@ -14,10 +14,12 @@ function PerfilAdmin() {
 
     useEffect(() => {
         const sesion = JSON.parse(localStorage.getItem("sesionActiva"));
-        if (!sesion || sesion.tipoUsuario !== "admin") {
+
+        if (!sesion || sesion.rol !== "Administrador") {
             navigate("/IniciarSesion");
         } else {
             setUsuario(sesion);
+
             const todos = JSON.parse(localStorage.getItem("usuarios")) || [];
             setUsuarios(todos);
         }
