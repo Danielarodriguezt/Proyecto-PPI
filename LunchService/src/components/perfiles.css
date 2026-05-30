@@ -2,7 +2,7 @@
  .perfil-pagina {
      display: flex;
      min-height: 100vh;
-     background: linear-gradient(135deg, #d9d4c8, #9ea8b5, #313852);
+     background: rgb(249, 241, 227);
      font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
  }
 
@@ -150,13 +150,13 @@
  }
 
  .perfil-contenido h1 {
-     color: #F7F4EB;
+     color: #313852;
      font-size: 32px;
      margin-bottom: 8px;
  }
 
  .subtitulo {
-     color: rgba(30, 18, 18, 0.652);
+     color: #313852;
      font-size: 15px;
      margin-bottom: 30px;
      margin-top: 0;
@@ -188,7 +188,7 @@
  }
 
  .tarjeta-dato {
-     background: rgba(10, 47, 114, 0.18);
+     background: rgba(10, 46, 114, 0.397);
      backdrop-filter: blur(10px);
      border-radius: 16px;
      padding: 20px;
@@ -235,7 +235,7 @@
  }
 
  .estadistica {
-     background: rgba(10, 47, 114, 0.18);
+     background: rgba(10, 46, 114, 0.397);
      backdrop-filter: blur(10px);
      border-radius: 16px;
      padding: 24px 30px;
